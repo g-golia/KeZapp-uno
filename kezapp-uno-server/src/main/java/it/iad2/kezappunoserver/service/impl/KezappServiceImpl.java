@@ -9,7 +9,6 @@ import it.iad2.kezappunoserver.model.Messaggio;
 import it.iad2.kezappunoserver.repository.ChatRepository;
 import it.iad2.kezappunoserver.repository.MessaggioRepository;
 import it.iad2.kezappunoserver.service.KezappService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +29,19 @@ public class KezappServiceImpl implements KezappService {
         Chat chat = chatRepository.findByNickname(dto.getNickname());
         // se nickname esiste
         if (chat != null) {
-            dtoR.setSessione(chat.getSessione());
+            dtoR.setSessione(null);
         // se nickname non esiste
         }else{
             Chat chatN = new Chat();
             chatN.setNickname(dto.getNickname());
             chatN = chatRepository.save(chatN);
             // salvataggio in repository per impostare sessione uguale a id
-            String sessione = chatN.getId().toString(); //controllare se funziona
+            String sessione = chatN.getId().toString();
             chatN.setSessione(sessione);
             chatN = chatRepository.save(chatN);
             dtoR.setSessione(sessione);
         }
-        return dtoR;
+        return sincronizzaMsgContatti(chat);
     }
     
     @Override
@@ -96,12 +95,13 @@ public class KezappServiceImpl implements KezappService {
         System.out.println("sono in sincronizzaMsgContatti");
         RegistrazioneDto dtoR = new RegistrazioneDto();
         //recupero delle chat , tranne quelle con il nickname della chat in ingresso
-        List<Chat> contatti = chatRepository.findAll(); //proposta chatteChiatte
-        List<Chat> listaAgg = contatti.stream().filter(c -> !(c.getNickname().equals(chat.getNickname()))).collect(Collectors.toList());
+        List<Chat> contatti = chatRepository.findAll();
+        List<Chat> contattiFilter = contatti.stream().filter(c -> !(c.getNickname().equals(chat.getNickname()))).collect(Collectors.toList());
         //recupero tutti i messaggi con nickname e pubblici
-        List<Messaggio> messaggi = messaggioRepository.findByAliasDestinatarioOrAliasDestinatario(chat.getNickname(), null);
-        dtoR.setContatti(listaAgg);
-        dtoR.setMessaggi(messaggi);
+        List<Messaggio> messaggi = messaggioRepository.findByAliasDestinatarioEqualsOrAliasDestinatarioIsNull(chat.getNickname());
+        List<Messaggio> msgFilter = messaggi.stream().filter(m -> !(m.getAliasMittente().equals(chat.getNickname()))).collect(Collectors.toList());
+        dtoR.setContatti(contattiFilter);
+        dtoR.setMessaggi(msgFilter);
         return dtoR;
     }
     

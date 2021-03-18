@@ -51,6 +51,7 @@ export class AppComponent {
       this.messaggi = d.messaggi;
       this.contatti = d.contatti;
     });
+    this.messaggio = "";
   }
 
   aggiorna() {
@@ -81,5 +82,6 @@ export class AppComponent {
       this.messaggi = d.messaggi;
       this.contatti = d.contatti;
     });
+    this.messaggio = "";
   }
 }
