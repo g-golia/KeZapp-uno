@@ -21,73 +21,66 @@ export class AppComponent {
   messaggi: Messaggio[] = [];
   contatti: Chat[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   registrazione() {
-    // creo il dto con i dati da inviare
-    let dx: RichiediRegistrazioneDto = new RichiediRegistrazioneDto();
-    dx.nickname = this.nickName;
-    // preparo la richiesta HTTP
+    console.log("Sono in registrazione()");
+    // Preparo i dati da inviare
+    let dto: RichiediRegistrazioneDto = new RichiediRegistrazioneDto();
+    dto.nickname = this.nickName;
+    // Chiamata REST
     let oss: Observable<RegistrazioneDto> = this.http.post<RegistrazioneDto>(
-      'http://localhost:8080/registrazione',
-      dx
-    );
-    // creo la callback
-    oss.subscribe((risposta) => {
-      console.log(risposta);
-      this.messaggi = risposta.messaggi;
-      this.contatti = risposta.contatti;
-      this.sessione = risposta.sessione;
+      'http://localhost:8080/registrazione', dto);
+    oss.subscribe(d => {
+      this.messaggi = d.messaggi;
+      this.contatti = d.contatti;
+      this.sessione = d.sessione;
     });
   }
+
   inviaATutti() {
-    // preparo di dati da inviare al server
-    let im: InviaMessaggioDto = new InviaMessaggioDto();
-    im.messaggio = this.messaggio;
-    im.destinatario = null;
-    im.sessione = this.sessione;
-    // invio i dati al server
-    let ox: Observable<RegistrazioneDto> = this.http.post<RegistrazioneDto>(
-      'http://localhost:8080/invia-tutti',
-      im
-    );
-    ox.subscribe((data) => {
-      this.messaggi = data.messaggi;
-      this.contatti = data.contatti;
+    console.log("Sono in inviaATutti()");
+    // Preparo i dati da inviare
+    let dto: InviaMessaggioDto = new InviaMessaggioDto();
+    dto.messaggio = this.messaggio;
+    dto.destinatario = null;
+    dto.sessione = this.sessione;
+    // Chiamata REST
+    let oss: Observable<RegistrazioneDto> = this.http.post<RegistrazioneDto>(
+      'http://localhost:8080/invia-tutti', dto);
+    oss.subscribe(d => {
+      this.messaggi = d.messaggi;
+      this.contatti = d.contatti;
     });
   }
-  /**
-   * @description questo metodo recupera da server i dati aggiornati
-   */
+
   aggiorna() {
-    // prepara i dati da inviare al server
-    let p: RichiediMessaggiDto = new RichiediMessaggiDto();
-    p.sessione = this.sessione;
-    // prepara la richiesta HTTP
-    let obs: Observable<RegistrazioneDto> = this.http.post<RegistrazioneDto>(
-      'http://localhost:8080/aggiorna',
-      p
-    );
-    // invio la richiesta
-    obs.subscribe((rs) => {
-      this.messaggi = rs.messaggi;
-      this.contatti = rs.contatti;
+    console.log("Sono in aggiorna()");
+    // Preparo i dati da inviare
+    let dto: RichiediMessaggiDto = new RichiediMessaggiDto();
+    dto.sessione = this.sessione;
+    // Chiamata REST
+    let oss: Observable<RegistrazioneDto> = this.http.post<RegistrazioneDto>(
+      'http://localhost:8080/aggiorna', dto);
+    oss.subscribe(d => {
+      this.messaggi = d.messaggi;
+      this.contatti = d.contatti;
     });
   }
+
   inviaAUno(c: Chat) {
-    // preparo di dati da inviare al server
-    let im: InviaMessaggioDto = new InviaMessaggioDto();
-    im.messaggio = this.messaggio;
-    im.destinatario = c.nickname;
-    im.sessione = this.sessione;
-    // invio i dati al server
-    let ox: Observable<RegistrazioneDto> = this.http.post<RegistrazioneDto>(
-      'http://localhost:8080/invia-uno',
-      im
-    );
-    ox.subscribe((data) => {
-      this.messaggi = data.messaggi;
-      this.contatti = data.contatti;
+    console.log("Sono in inviaAUno()");
+    // Preparo i dati da inviare
+    let dto: InviaMessaggioDto = new InviaMessaggioDto();
+    dto.messaggio = this.messaggio;
+    dto.destinatario = c.nickname;
+    dto.sessione = this.sessione;
+    // Chiamata REST
+    let oss: Observable<RegistrazioneDto> = this.http.post<RegistrazioneDto>(
+      'http://localhost:8080/invia-uno', dto);
+    oss.subscribe(d => {
+      this.messaggi = d.messaggi;
+      this.contatti = d.contatti;
     });
   }
 }
