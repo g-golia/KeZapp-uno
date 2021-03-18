@@ -1,40 +1,52 @@
 <div class="center dimensioneMax">
-  <div class="centerblue">
-    <h2>KezApp</h2>
-    <hr>
-    <input class="margine marginiLaterali" type="text" [(ngModel)]="nickName" placeholder="nickName">
-    <button class="margine marginiLaterali" type="button" (click)="registrazione()">Registrazione</button>
+  <div class="centerblue margine">
+    <div class="container">
+      <div class="left2 margineXL ">
+        <h2>KezApp</h2>
+      </div>
+      <div class="right2 margineXL">
+        <img src='assets/img/kezapp-logo.png' alt="kezapp-logo" />
+      </div>
+    </div>
     <br>
-    <input class="margine marginiLaterali" type="text" [(ngModel)]="messaggio" placeholder="messaggio">
-    <button class="margine marginiLaterali" type="button" (click)="inviaTutti()">Invia a Tutti</button>
-    <br>
+    <br><br><br><br>
     <hr>
-    Contatti
-    <div class="center">
-      <div class="scrodiv2 margine marginiLaterali">
-        <table>
-          <th>Nickname</th>
-          <tr *ngFor="let c of contatti">
-            <td>{{c.nickname}}</td>
-            <td>
-              <button class="margine marginiLaterali" (click)="inviaUno(c)">Invia a </button>
-            </td>
+    <div *ngIf="!accessoEffettuato">
+      <input class="margine marginiLaterali" type="text" [(ngModel)]="nickName" placeholder="nickName">
+      <button class="margine marginiLaterali" type="button" (click)="registrazione()">Registrazione</button>
+    </div>
+    <br>
+    <div *ngIf="accessoEffettuato">
+      <input class="margine marginiLaterali" type="text" [(ngModel)]="messaggio" placeholder="messaggio">
+      <button class="margine marginiLaterali" type="button" (click)="inviaTutti()">Invia a Tutti</button>
+      <br>
+      <hr>
+      Contatti
+      <div class="center">
+        <div class="scrodiv2 margine marginiLaterali">
+          <table>
+            <th>Nickname</th>
+            <tr *ngFor="let c of contatti">
+              <td>{{c.nickname}}</td>
+              <td>
+                <button class="margine marginiLaterali" (click)="inviaUno(c)">Invia a </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      Messaggi ricevuti
+      <button class="margine marginiLaterali" type="button" (click)="aggiorna()">Aggiorna</button>
+      <div class="scrodiv margine marginiLaterali">
+        <table class="center">
+          <th>Mittente</th>
+          <th>Messaggio</th>
+          <tr *ngFor="let m of messaggi">
+            <td>{{m.aliasMittente}}</td>
+            <td>{{m.testo}}</td>
           </tr>
         </table>
       </div>
-    </div>
-    Messaggi ricevuti
-
-    <button class="margine marginiLaterali" type="button" (click)="aggiorna()">Aggiorna</button>
-    <div class="scrodiv margine marginiLaterali">
-      <table class="center">
-        <th>Mittente</th>
-        <th>Messaggio</th>
-        <tr *ngFor="let m of messaggi">
-          <td>{{m.aliasMittente}}</td>
-          <td>{{m.testo}}</td>
-        </tr>
-      </table>
     </div>
   </div>
 </div>

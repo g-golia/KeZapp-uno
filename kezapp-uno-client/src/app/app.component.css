@@ -1,7 +1,13 @@
-.dimensioneMax{
+.dimensioneMax {
     width: 660px;
-    height: 670px;
+    height: 710px;
 }
+
+.immaginegrande {
+    width: 70px;
+    height: 70px;
+}
+
 .scrodiv {
     overflow-y: scroll;
     overflow-x: scroll;
@@ -11,6 +17,7 @@
     height: 250px;
     background-color: #ffffff;
 }
+
 .scrodiv2 {
     overflow-y: scroll;
     overflow-x: scroll;
@@ -28,6 +35,10 @@ table {
 
 .margine {
     margin-top: 10px;
+}
+
+.margineXL {
+    margin-top: 20px;
 }
 
 .marginiLaterali {
@@ -75,7 +86,6 @@ select {
     margin-left: auto;
     margin-right: auto;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
 }
 
 .centerblue {
@@ -119,6 +129,24 @@ select {
     font-size: 11px;
     text-align: center;
     width: 150px;
+}
+
+.container {
+    width: 100%;
+    vertical-align: middle;
+    margin-top: 10px;
+}
+
+.right2 {
+    float: right;
+    width: 50%;
+    text-align: left;
+}
+
+.left2 {
+    float: left;
+    width: 50%;
+    text-align: right;
 }
 
 button {
