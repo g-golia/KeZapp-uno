@@ -1,3 +1,4 @@
+package it.iad2.kezappunoserver.service.impl;
 
 import it.iad2.kezappunoserver.dto.InviaMessaggioDto;
 import it.iad2.kezappunoserver.dto.RegistrazioneDto;

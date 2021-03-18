@@ -12,43 +12,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin("*")
+@RestController
+
 public class KezappController {
 
-    @CrossOrigin("*")
-    @RestController
-    public class KezappController00 {
+    @Autowired
+    KezappService kezappService;
 
-        @Autowired
-        KezappService kezappService;
+    @RequestMapping("/registrazione")
+    @ResponseBody
+    public RegistrazioneDto registrazione(@RequestBody RichiediRegistrazioneDto dto) {
+        System.out.println("Siamo in registrazione!");
+        return kezappService.registrazione(dto);
+    }
 
-        @RequestMapping(value = "/registrazione")
-        @ResponseBody
-        public RegistrazioneDto registrazione(@RequestBody RichiediRegistrazioneDto dto) {
-            System.out.println("Siamo in registrazione!");
+    @RequestMapping("/invia-uno")
+    @ResponseBody
+    public RegistrazioneDto inviaUno(@RequestBody InviaMessaggioDto dto) {
+        System.out.println("Siamo in invia-uno!");
+        return kezappService.inviaUno(dto);
+    }
 
-            return kezappService.registrazione(dto);
-        }
+    @RequestMapping("/invia-tutti")
+    @ResponseBody
+    public RegistrazioneDto inviaTutti(@RequestBody InviaMessaggioDto dto) {
+        System.out.println("Siamo in invia-tutti!");
+        return kezappService.inviaTutti(dto);
+    }
 
-        @RequestMapping(value = "/invia-uno")
-        @ResponseBody
-        public RegistrazioneDto inviaUno(@RequestBody InviaMessaggioDto dto) {
-            System.out.println("Siamo in invia-uno!");
-
-            return kezappService.inviaUno(dto);
-        }
-
-        @RequestMapping(value = "/invia-tutti")
-        public RegistrazioneDto inviaTutti(@RequestBody InviaMessaggioDto dto) {
-            System.out.println("Siamo in invia-tutti!");
-
-            return kezappService.inviaTutti(dto);
-        }
-
-        @RequestMapping(value = "/aggiorna")
-        public RegistrazioneDto aggiorna(@RequestBody RichiediMessaggiDto dto) {
-            System.out.println("Siamo in aggiorna!");
-
-            return kezappService.aggiorna(dto);
-        }
+    @RequestMapping("/aggiorna")
+    @ResponseBody
+    public RegistrazioneDto aggiorna(@RequestBody RichiediMessaggiDto dto) {
+        System.out.println("Siamo in aggiorna!");
+        return kezappService.aggiorna(dto);
     }
 }

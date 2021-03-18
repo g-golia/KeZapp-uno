@@ -1,4 +1,3 @@
-
 package it.iad2.kezappunoserver.model;
 
 import java.io.Serializable;
