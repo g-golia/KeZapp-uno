@@ -9,7 +9,9 @@ import it.iad2.kezappunoserver.model.Messaggio;
 import it.iad2.kezappunoserver.repository.ChatRepository;
 import it.iad2.kezappunoserver.repository.MessaggioRepository;
 import it.iad2.kezappunoserver.service.KezappService;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,7 @@ public class KezappServiceImpl implements KezappService {
         Chat chat = chatRepository.findByNickname(dto.getNickname());
         // se nickname esiste
         if (chat != null) {
-            dtoR.setSessione(null);
+            dtoR.setSessione(chat.getSessione());
         // se nickname non esiste
         }else{
             Chat chatN = new Chat();
@@ -91,10 +93,11 @@ public class KezappServiceImpl implements KezappService {
     
     
     private RegistrazioneDto sincronizzaMsgContatti(Chat chat){
+        System.out.println("sono in sincronizzaMsgContatti");
         RegistrazioneDto dtoR = new RegistrazioneDto();
         //recupero delle chat , tranne quelle con il nickname della chat in ingresso
         List<Chat> contatti = chatRepository.findAll(); //proposta chatteChiatte
-        List<Chat> listaAgg = (List<Chat>)contatti.stream().filter(c -> !(c.getNickname().equals(chat.getNickname())));
+        List<Chat> listaAgg = contatti.stream().filter(c -> !(c.getNickname().equals(chat.getNickname()))).collect(Collectors.toList());
         //recupero tutti i messaggi con nickname e pubblici
         List<Messaggio> messaggi = messaggioRepository.findByAliasDestinatarioOrAliasDestinatario(chat.getNickname(), null);
         dtoR.setContatti(listaAgg);
