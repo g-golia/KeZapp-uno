@@ -6,7 +6,7 @@
     <button class="margine marginiLaterali" type="button" (click)="registrazione()">Registrazione</button>
     <br>
     <input class="margine marginiLaterali" type="text" [(ngModel)]="messaggio">
-    <button class="margine marginiLaterali" type="button" (click)="inviaATutti()">Invia a Tutti</button>
+    <button class="margine marginiLaterali" type="button" (click)="inviaTutti()">Invia a Tutti</button>
     <br>
     <hr>
     Contatti
@@ -17,7 +17,7 @@
           <tr *ngFor="let c of contatti">
             <td>{{c.nickname}}</td>
             <td>
-              <button class="margine marginiLaterali" (click)="inviaAUno(c)">Invia a {{c.nickname}}</button>
+              <button class="margine marginiLaterali" (click)="inviaUno(c)">Invia a {{c.nickname}}</button>
             </td>
           </tr>
         </table>

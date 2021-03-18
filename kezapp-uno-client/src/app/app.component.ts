@@ -16,7 +16,6 @@ import { RichiediRegistrazioneDto } from './richiedi-registrazione-dto';
 export class AppComponent {
   nickName: string;
   messaggio: string;
-  righe: string[];
   sessione: string;
   messaggi: Messaggio[] = [];
   contatti: Chat[] = [];
@@ -38,8 +37,8 @@ export class AppComponent {
     });
   }
 
-  inviaATutti() {
-    console.log("Sono in inviaATutti()");
+  inviaTutti() {
+    console.log("Sono in inviaTutti()");
     // Preparo i dati da inviare
     let dto: InviaMessaggioDto = new InviaMessaggioDto();
     dto.messaggio = this.messaggio;
@@ -68,8 +67,8 @@ export class AppComponent {
     });
   }
 
-  inviaAUno(c: Chat) {
-    console.log("Sono in inviaAUno()");
+  inviaUno(c: Chat) {
+    console.log("Sono in inviaUno()");
     // Preparo i dati da inviare
     let dto: InviaMessaggioDto = new InviaMessaggioDto();
     dto.messaggio = this.messaggio;

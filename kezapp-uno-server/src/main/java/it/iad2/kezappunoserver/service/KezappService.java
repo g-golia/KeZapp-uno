@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.iad2.kezappunoserver.service;
 
-/**
- *
- * @author irene
- */
-public class KezappService {
-    
+import it.iad2.kezappunoserver.dto.InviaMessaggioDto;
+import it.iad2.kezappunoserver.dto.RegistrazioneDto;
+import it.iad2.kezappunoserver.dto.RichiediMessaggiDto;
+import it.iad2.kezappunoserver.dto.RichiediRegistrazioneDto;
+
+
+public interface KezappService {
+
+    RegistrazioneDto registrazione(RichiediRegistrazioneDto dto);
+
+    RegistrazioneDto inviaTutti(InviaMessaggioDto dto);
+
+    RegistrazioneDto aggiorna(RichiediMessaggiDto dto);
+
+    RegistrazioneDto inviaUno(InviaMessaggioDto dto);
+
 }
